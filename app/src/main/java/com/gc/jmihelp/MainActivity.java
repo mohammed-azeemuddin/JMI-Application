@@ -137,38 +137,35 @@ public class MainActivity extends AppCompatActivity
                 .addHeaderModel(new HeaderModel("Profile", R.drawable.profile))
                 .addHeaderModel(
                         new HeaderModel("School", R.drawable.building, true)
-                                .addChildModel(new ChildModel("Courses"))
-                                .addChildModel(new ChildModel("Classroom"))
-                                .addChildModel(new ChildModel("Test Series"))
-                                .addChildModel(new ChildModel("Study Material"))
-                                .addChildModel(new ChildModel("Doubt Clearance"))
+                                .addChildModel(new ChildModel("Courses",R.drawable.couses))
+                                .addChildModel(new ChildModel("Classroom",R.drawable.lapclass))
+                                .addChildModel(new ChildModel("Test Series",R.drawable.ic_test_series))
+                                .addChildModel(new ChildModel("Study Material",R.drawable.ic_studymaterial))
+                                .addChildModel(new ChildModel("Doubt Clearance",R.drawable.ic_doubtclear))
                 )
                 .addHeaderModel(
                         new HeaderModel("Entrance", R.drawable.ic_studymaterial, true)
-                                .addChildModel(new ChildModel("Courses"))
-                                .addChildModel(new ChildModel("Test Series"))
-                                .addChildModel(new ChildModel("Study Groups"))
-                                .addChildModel(new ChildModel("Study Materials"))
-                                .addChildModel(new ChildModel("News and Articles"))
+                                .addChildModel(new ChildModel("Courses",R.drawable.couses))
+                                .addChildModel(new ChildModel("Test Series",R.drawable.help))
+                                .addChildModel(new ChildModel("Study Groups",R.drawable.ic_studygroup))
+                                .addChildModel(new ChildModel("Study Materials",R.drawable.ic_studymaterial))
+                                .addChildModel(new ChildModel("News and Articles",R.drawable.ic_news))
                 )
                 .addHeaderModel(new HeaderModel("Patna", R.drawable.ic_patna))
                 .addHeaderModel(
                 new HeaderModel("Courses", R.drawable.couses, true)
-                        .addChildModel(new ChildModel("Overall Development"))
-                        .addChildModel(new ChildModel("Skilling"))
-                        .addChildModel(new ChildModel("IT and Computer Science"))
-                        .addChildModel(new ChildModel("Psychology and Mental Health"))
-                        .addChildModel(new ChildModel("Business and Management"))
-                        .addChildModel(new ChildModel("Language and Literature"))
+                        .addChildModel(new ChildModel("Overall Development",R.drawable.ic_overalldev))
+                        .addChildModel(new ChildModel("Skilling",R.drawable.ic_skilling))
+                        .addChildModel(new ChildModel("IT and Computer Science",R.drawable.ic_news))
+                        .addChildModel(new ChildModel("Psychology and Mental Health",R.drawable.tree))
+                        .addChildModel(new ChildModel("Business and Management",R.drawable.ic_businessmanage))
+                        .addChildModel(new ChildModel("Language and Literature",R.drawable.cl))
                 )
-                .addHeaderModel(
-                        new HeaderModel("More", R.drawable.blog, true)
-                                .addChildModel(new ChildModel("QnA"))
-                                .addChildModel(new ChildModel("Book Market"))
-                                .addChildModel(new ChildModel("Articles and Blog"))
-                                .addChildModel(new ChildModel("Events"))
-                                .addChildModel(new ChildModel("Contact Us"))
-                )
+                .addHeaderModel(new HeaderModel("QnA",R.drawable.qna))
+                .addHeaderModel(new HeaderModel("Book Market",R.drawable.bookm))
+                .addHeaderModel(new HeaderModel("Articles and Blog",R.drawable.blog))
+                .addHeaderModel(new HeaderModel("Events",R.drawable.event))
+                .addHeaderModel(new HeaderModel("Contact Us",R.drawable.contact))
                 .build()
                 .addOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                     @Override
@@ -201,7 +198,19 @@ public class MainActivity extends AppCompatActivity
                             Common.showToast(context, "Courses selected");
                         } else if (groupPosition==5) {
                             //Notifications Menu
-                            Common.showToast(context, "More selected");
+                            Common.showToast(context, "QnA selected");
+                        } else if (groupPosition==6) {
+                            //Notifications Menu
+                            Common.showToast(context, "Book Market selected");
+                        } else if (groupPosition==7) {
+                            //Notifications Menu
+                            Common.showToast(context, "Articles and Blog selected");
+                        } else if (groupPosition==8) {
+                            //Notifications Menu
+                            Common.showToast(context, "Events selected");
+                        } else if (groupPosition==9) {
+                            //Notifications Menu
+                            Common.showToast(context, "Contact Us selected");
                         }
                         return false;
                     }
@@ -242,16 +251,6 @@ public class MainActivity extends AppCompatActivity
                             Common.showToast(context, "Courses Business and Managment select");
                         } else if (groupPosition==4 && childPosition == 5) {
                             Common.showToast(context, "Courses Lang and Lit select");
-                        } else if (groupPosition==5 && childPosition == 0) {
-                            Common.showToast(context, "QnA");
-                        } else if (groupPosition==5 && childPosition == 1) {
-                            Common.showToast(context, "Book Market");
-                        } else if (groupPosition==5 && childPosition == 2) {
-                            Common.showToast(context, "Articles and Blog");
-                        } else if (groupPosition==5 && childPosition == 3) {
-                            Common.showToast(context, "Events");
-                        } else if (groupPosition==5 && childPosition == 4) {
-                            Common.showToast(context, "Contact");
                         }
                         drawer.closeDrawer(GravityCompat.START);
                         return false;
