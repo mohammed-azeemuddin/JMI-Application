@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffdc5a"
+    android:background="#000000"
 
     android:orientation="vertical">
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/jmihelpicon"
+        android:src="@drawable/padhaai_splash"
         android:layout_centerInParent="true"
         android:layout_margin="20dp"/>
 

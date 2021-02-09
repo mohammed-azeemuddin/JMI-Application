@@ -14,6 +14,9 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.net.MailTo;
 import android.net.Uri;
 import android.os.Build;
@@ -34,6 +37,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -50,9 +54,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.gc.jmihelp.model.ChildModel;
-import com.gc.jmihelp.model.HeaderModel;
-import com.gc.jmihelp.view.ExpandableNavigationListView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -61,6 +62,9 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.techatmosphere.expandablenavigation.model.ChildModel;
+import com.techatmosphere.expandablenavigation.model.HeaderModel;
+import com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -94,6 +98,8 @@ public class MainActivity extends AppCompatActivity
     private ExpandableNavigationListView listView;
     private Context context;
     private DrawerLayout drawer;
+    public boolean isEnglish;
+    Button eng_hindi_btn;
 
     NestedScrollView nestedScrollView;
     //    final String url="https://gurucool.xyz/ECCInstitute";
@@ -115,16 +121,45 @@ public class MainActivity extends AppCompatActivity
         listView = findViewById(R.id.expandable_navigation);
         context = MainActivity.this;
         drawer = findViewById(R.id.drawer_layout);
+        isEnglish = true;
+        eng_hindi_btn=findViewById(R.id.eng_hindi_btn);
+
+        if(getIntent().getExtras() == null) {
+            activateEnglish();
+        }
+        else if(getIntent().getExtras() != null) {
+            Bundle extras = getIntent().getExtras();
+            boolean eng = extras.getBoolean("eng");
+            if(eng)
+                activateEnglish();
+            else
+                activateHindi();
+        }
+
+        eng_hindi_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isEnglish=!isEnglish;
+                if(isEnglish==true){
+                    activateEnglish();
+                }else{
+                    activateHindi();
+                }
+            }
+        });
 
 //        setTitle("Eeduhub");
 //        setTitle("ECC");
 //        setTitle("Al-Najah Institute");
-        setTitle("JMI Help");
+//        setTitle("JMI Help");
+
         mWebView.loadUrl(url);
 
         setMySwipeRefreshLayout();
 
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
+
 
         //setmFirebaseAnalytics();
 
@@ -132,132 +167,6 @@ public class MainActivity extends AppCompatActivity
 
         setActionBarToogle();
 
-        listView
-                .init(this)
-                .addHeaderModel(new HeaderModel("Profile", R.drawable.profile))
-                .addHeaderModel(
-                        new HeaderModel("School", R.drawable.building, true)
-                                .addChildModel(new ChildModel("Courses",R.drawable.couses))
-                                .addChildModel(new ChildModel("Classroom",R.drawable.lapclass))
-                                .addChildModel(new ChildModel("Test Series",R.drawable.ic_test_series))
-                                .addChildModel(new ChildModel("Study Material",R.drawable.ic_studymaterial))
-                                .addChildModel(new ChildModel("Doubt Clearance",R.drawable.ic_doubtclear))
-                )
-                .addHeaderModel(
-                        new HeaderModel("Entrance", R.drawable.ic_studymaterial, true)
-                                .addChildModel(new ChildModel("Courses",R.drawable.couses))
-                                .addChildModel(new ChildModel("Test Series",R.drawable.help))
-                                .addChildModel(new ChildModel("Study Groups",R.drawable.ic_studygroup))
-                                .addChildModel(new ChildModel("Study Materials",R.drawable.ic_studymaterial))
-                                .addChildModel(new ChildModel("News and Articles",R.drawable.ic_news))
-                )
-                .addHeaderModel(new HeaderModel("Patna", R.drawable.ic_patna))
-                .addHeaderModel(
-                new HeaderModel("Courses", R.drawable.couses, true)
-                        .addChildModel(new ChildModel("Overall Development",R.drawable.ic_overalldev))
-                        .addChildModel(new ChildModel("Skilling",R.drawable.ic_skilling))
-                        .addChildModel(new ChildModel("IT and Computer Science",R.drawable.ic_news))
-                        .addChildModel(new ChildModel("Psychology and Mental Health",R.drawable.tree))
-                        .addChildModel(new ChildModel("Business and Management",R.drawable.ic_businessmanage))
-                        .addChildModel(new ChildModel("Language and Literature",R.drawable.cl))
-                )
-                .addHeaderModel(new HeaderModel("QnA",R.drawable.qna))
-                .addHeaderModel(new HeaderModel("Book Market",R.drawable.bookm))
-                .addHeaderModel(new HeaderModel("Articles and Blog",R.drawable.blog))
-                .addHeaderModel(new HeaderModel("Events",R.drawable.event))
-                .addHeaderModel(new HeaderModel("Contact Us",R.drawable.contact))
-                .build()
-                .addOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-                    @Override
-                    public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                        listView.setSelected(groupPosition);
-                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("key", 1);
-
-                        if (groupPosition == 0) {
-                            //Profile
-                            bundle.putString("data", "https://gurucool.xyz/doubtclearancepadhaai");
-                            intent.putExtras(bundle);
-
-                            finish();
-                            startActivity(intent);
-
-                        } else if (groupPosition == 1) {
-                            //School submenu
-                            Common.showToast(context, "School Select");
-                        } else if (groupPosition == 2) {
-                            //Entrance sub Menu
-                            Common.showToast(context, "Entrance Select");
-                        } else if (groupPosition == 3) {
-                            //Patna
-                            Common.showToast(context, "Patna selected");
-                            drawer.closeDrawer(GravityCompat.START);
-                        } else if (groupPosition==4) {
-                            //Notifications Menu
-                            Common.showToast(context, "Courses selected");
-                        } else if (groupPosition==5) {
-                            //Notifications Menu
-                            Common.showToast(context, "QnA selected");
-                        } else if (groupPosition==6) {
-                            //Notifications Menu
-                            Common.showToast(context, "Book Market selected");
-                        } else if (groupPosition==7) {
-                            //Notifications Menu
-                            Common.showToast(context, "Articles and Blog selected");
-                        } else if (groupPosition==8) {
-                            //Notifications Menu
-                            Common.showToast(context, "Events selected");
-                        } else if (groupPosition==9) {
-                            //Notifications Menu
-                            Common.showToast(context, "Contact Us selected");
-                        }
-                        return false;
-                    }
-                })
-                .addOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-                    @Override
-                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                        listView.setSelected(groupPosition, childPosition);
-                        if (groupPosition==1 && childPosition==0) {
-                            Common.showToast(context, "School courses select");
-                        } else if (groupPosition==1 && childPosition==1) {
-                            Common.showToast(context, "School classroom select");
-                        } else if (groupPosition==1 && childPosition==2) {
-                            Common.showToast(context, "School test series select");
-                        } else if (groupPosition==1 && childPosition==3) {
-                            Common.showToast(context, "School study material select");
-                        } else if (groupPosition==1 && childPosition==4) {
-                            Common.showToast(context, "School doubt clearance select");
-                        } else if (groupPosition==2 && childPosition == 0) {
-                            Common.showToast(context, "Entrance courses select");
-                        } else if (groupPosition==2 && childPosition == 1) {
-                            Common.showToast(context, "Entrance test series select");
-                        } else if (groupPosition==2 && childPosition == 2) {
-                            Common.showToast(context, "Entrance study groups select");
-                        } else if (groupPosition==2 && childPosition == 3) {
-                            Common.showToast(context, "Entrance study materials select");
-                        } else if (groupPosition==2 && childPosition == 4) {
-                            Common.showToast(context, "Entrance news and articles select");
-                        } else if (groupPosition==4 && childPosition == 0) {
-                            Common.showToast(context, "Courses overall dev select");
-                        } else if (groupPosition==4 && childPosition == 1) {
-                            Common.showToast(context, "Courses Skilling select");
-                        } else if (groupPosition==4 && childPosition == 2) {
-                            Common.showToast(context, "Courses IT CSE select");
-                        } else if (groupPosition==4 && childPosition == 3) {
-                            Common.showToast(context, "Courses Psych and Mental select");
-                        } else if (groupPosition==4 && childPosition == 4) {
-                            Common.showToast(context, "Courses Business and Managment select");
-                        } else if (groupPosition==4 && childPosition == 5) {
-                            Common.showToast(context, "Courses Lang and Lit select");
-                        }
-                        drawer.closeDrawer(GravityCompat.START);
-                        return false;
-                    }
-                });
-
-        listView.setSelected(0);
         webSettings();
 
         if(getIntent().getExtras() != null) {
@@ -265,7 +174,6 @@ public class MainActivity extends AppCompatActivity
             mWebView.loadUrl(extras.getString("data"));
 
         }
-
 
         //setRTL();
         String state = Environment.getExternalStorageState();
@@ -282,6 +190,448 @@ public class MainActivity extends AppCompatActivity
         }
 
 
+    }
+
+    public void activateHindi(){
+        listView
+                .init(this)
+                .addHeaderModel(new HeaderModel("रूपरेखा", R.drawable.profile))
+                .addHeaderModel(
+                        new HeaderModel("विद्यालय", R.drawable.building, true)
+                                .addChildModel(new ChildModel("पाठ्यक्रम"))
+                                .addChildModel(new ChildModel("कक्षा"))
+                                .addChildModel(new ChildModel("टेस्ट सीरीज"))
+                                .addChildModel(new ChildModel("अध्ययन सामग्री"))
+                                .addChildModel(new ChildModel("संदेह की निकासी"))
+                )
+                .addHeaderModel(
+                        new HeaderModel("प्रवेश", R.drawable.ic_studymaterial, true)
+                                .addChildModel(new ChildModel("पाठ्यक्रम"))
+                                .addChildModel(new ChildModel("टेस्ट सीरीज"))
+                                .addChildModel(new ChildModel("अध्ययन समूह"))
+                                .addChildModel(new ChildModel("अध्ययन सामग्री"))
+                                .addChildModel(new ChildModel("समाचार लेख"))
+                )
+                .addHeaderModel(new HeaderModel("पटना विश्वविद्यालय", R.drawable.ic_patna))
+                .addHeaderModel(
+                        new HeaderModel("पाठ्यक्रम", R.drawable.couses, true)
+                                .addChildModel(new ChildModel("समावेशी विकास"))
+                                .addChildModel(new ChildModel("स्किलिंग"))
+                                .addChildModel(new ChildModel("आईटी और कंप्यूटर विज्ञान"))
+                                .addChildModel(new ChildModel("मनोविज्ञान और मानसिक स्वास्थ्य"))
+                                .addChildModel(new ChildModel("व्यवसाय प्रबंधन"))
+                                .addChildModel(new ChildModel("भाषा और साहित्य"))
+                )
+                .addHeaderModel(new HeaderModel("प्रश्न और उत्तर",R.drawable.qna))
+                .addHeaderModel(new HeaderModel("पुस्तक बाजार",R.drawable.bookm))
+                .addHeaderModel(new HeaderModel("लेख और अपडेट",R.drawable.blog))
+                .addHeaderModel(new HeaderModel("स्पर्धाएँ" + "आयोजन",R.drawable.event))
+                .addHeaderModel(new HeaderModel("संपर्क करें",R.drawable.contact))
+                .build()
+                .addOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                    @Override
+                    public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                        listView.setSelected(groupPosition);
+                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("key", 1);
+                        bundle.putBoolean("eng",false);
+
+                        if (groupPosition == 0) {
+                            //Profile
+//                            bundle.putString("data", "https://gurucool.xyz/timeline&u=PatnaUniversityHelp&ref=se");
+//                            intent.putExtras(bundle);
+//                            finish();
+//                            startActivity(intent);
+
+                        } else if (groupPosition == 1) {
+                            //School submenu
+                            //Common.showToast(context, "School Select");
+                        } else if (groupPosition == 2) {
+                            //Entrance sub Menu
+//                            Common.showToast(context, "Entrance Select");
+                        } else if (groupPosition == 3) {
+                            //Patna
+                            bundle.putString("data", "https://gurucool.xyz/timeline&u=PatnaUniversityHelp&ref=se");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            //Common.showToast(context, "Patna selected");
+                        } else if (groupPosition==4) {
+                            //Notifications Menu
+//                            Common.showToast(context, "Courses selected");
+                        } else if (groupPosition==5) {
+                            //Notifications Menu
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=discussion");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            //Common.showToast(context, "QnA selected");
+                        } else if (groupPosition==6) {
+                            //Notifications Menu
+                            bundle.putString("data", "https://gurucool.xyz/products");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            //Common.showToast(context, "Book Market selected");
+                        } else if (groupPosition==7) {
+                            //Notifications Menu
+                            bundle.putString("data", "https://gurucool.xyz/blogs");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            //Common.showToast(context, "Articles and Blog selected");
+                        } else if (groupPosition==8) {
+                            //Notifications Menu
+                            bundle.putString("data", "https://gurucool.xyz/events");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            //Common.showToast(context, "Events selected");
+                        } else if (groupPosition==9) {
+                            //Notifications Menu
+                            bundle.putString("data", "https://gurucool.xyz/messages/1068");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            // Common.showToast(context, "Contact Us selected");
+                        }
+                        return false;
+                    }
+                })
+                .addOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                        listView.setSelected(groupPosition, childPosition);
+                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("key", 1);
+                        bundle.putBoolean("eng",false);
+
+                        if (groupPosition==1 && childPosition==0) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=281");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            // Common.showToast(context, "School courses select");
+                        } else if (groupPosition==1 && childPosition==1) {
+                            bundle.putString("data", "https://gurucool.xyz/classroompro&id=281");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "School classroom select");
+                        } else if (groupPosition==1 && childPosition==2) {
+                            bundle.putString("data", "https://gurucool.xyz/testpro&id=281");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "School test series select");
+                        } else if (groupPosition==1 && childPosition==3) {
+                            bundle.putString("data", "https://gurucool.xyz/studyhelppro&id=281");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "School study material select");
+                        } else if (groupPosition==1 && childPosition==4) {
+                            bundle.putString("data", "https://gurucool.xyz/doubtclearancepadhaai");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "School doubt clearance select");
+                        } else if (groupPosition==2 && childPosition == 0) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=1076");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Entrance courses select");
+                        } else if (groupPosition==2 && childPosition == 1) {
+                            bundle.putString("data", "https://gurucool.xyz/testpro&id=1076");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Entrance test series select");
+                        } else if (groupPosition==2 && childPosition == 2) {
+                            bundle.putString("data", "https://gurucool.xyz/classroompro&id=1076");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Entrance study groups select");
+                        } else if (groupPosition==2 && childPosition == 3) {
+                            bundle.putString("data", "https://gurucool.xyz/studyhelppro&id=1076");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Entrance study materials select");
+                        } else if (groupPosition==2 && childPosition == 4) {
+                            bundle.putString("data", "https://gurucool.xyz/hashtag/upsc");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Entrance news and articles select");
+                        } else if (groupPosition==4 && childPosition == 0) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=49&folder=41");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Courses overall dev select");
+                        } else if (groupPosition==4 && childPosition == 1) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=49&folder=106");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Courses Skilling select");
+                        } else if (groupPosition==4 && childPosition == 2) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=49&folder=46");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Courses IT CSE select");
+                        } else if (groupPosition==4 && childPosition == 3) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=49&folder=107");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Courses Psych and Mental select");
+                        } else if (groupPosition==4 && childPosition == 4) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=49&folder=105");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            //Common.showToast(context, "Courses Business and Managment select");
+                        } else if (groupPosition==4 && childPosition == 5) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=49&folder=104");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            //Common.showToast(context, "Courses Lang and Lit select");
+                        }
+                        drawer.closeDrawer(GravityCompat.START);
+                        return false;
+                    }
+                });
+
+        listView.setSelected(0);
+    }
+
+    public void activateEnglish(){
+        listView
+                .init(this)
+                .addHeaderModel(new HeaderModel("Profile", R.drawable.profile))
+                .addHeaderModel(
+                        new HeaderModel("School", R.drawable.building, true)
+                                .addChildModel(new ChildModel("Courses"))
+                                .addChildModel(new ChildModel("Classroom"))
+                                .addChildModel(new ChildModel("Test Series"))
+                                .addChildModel(new ChildModel("Study Material"))
+                                .addChildModel(new ChildModel("Doubt Clearance"))
+                )
+                .addHeaderModel(
+                        new HeaderModel("Entrance", R.drawable.ic_studymaterial, true)
+                                .addChildModel(new ChildModel("Courses"))
+                                .addChildModel(new ChildModel("Test Series"))
+                                .addChildModel(new ChildModel("Study Groups"))
+                                .addChildModel(new ChildModel("Study Materials"))
+                                .addChildModel(new ChildModel("News and Articles"))
+                )
+                .addHeaderModel(new HeaderModel("Patna", R.drawable.ic_patna))
+                .addHeaderModel(
+                        new HeaderModel("Courses", R.drawable.couses, true)
+                                .addChildModel(new ChildModel("Overall Development"))
+                                .addChildModel(new ChildModel("Skilling"))
+                                .addChildModel(new ChildModel("IT and Computer Science"))
+                                .addChildModel(new ChildModel("Psychology and Mental Health"))
+                                .addChildModel(new ChildModel("Business and Management"))
+                                .addChildModel(new ChildModel("Language and Literature"))
+                )
+                .addHeaderModel(new HeaderModel("QnA",R.drawable.qna))
+                .addHeaderModel(new HeaderModel("Book Market",R.drawable.bookm))
+                .addHeaderModel(new HeaderModel("Articles and Blog",R.drawable.blog))
+                .addHeaderModel(new HeaderModel("Events",R.drawable.event))
+                .addHeaderModel(new HeaderModel("Contact Us",R.drawable.contact))
+                .build()
+                .addOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                    @Override
+                    public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                        listView.setSelected(groupPosition);
+                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("key", 1);
+                        bundle.putBoolean("eng",true);
+
+                        if (groupPosition == 0) {
+                            //Profile
+//                            bundle.putString("data", "https://gurucool.xyz/timeline&u=PatnaUniversityHelp&ref=se");
+//                            intent.putExtras(bundle);
+//                            finish();
+//                            startActivity(intent);
+
+                        } else if (groupPosition == 1) {
+                            //School submenu
+                            //Common.showToast(context, "School Select");
+                        } else if (groupPosition == 2) {
+                            //Entrance sub Menu
+                            //Common.showToast(context, "Entrance Select");
+                        } else if (groupPosition == 3) {
+                            //Patna
+                            bundle.putString("data", "https://gurucool.xyz/timeline&u=PatnaUniversityHelp&ref=se");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            //Common.showToast(context, "Patna selected");
+                        } else if (groupPosition==4) {
+                            //Notifications Menu
+                            //Common.showToast(context, "Courses selected");
+                        } else if (groupPosition==5) {
+                            //Notifications Menu
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=discussion");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            //Common.showToast(context, "QnA selected");
+                        } else if (groupPosition==6) {
+                            //Notifications Menu
+                            bundle.putString("data", "https://gurucool.xyz/products");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            //Common.showToast(context, "Book Market selected");
+                        } else if (groupPosition==7) {
+                            //Notifications Menu
+                            bundle.putString("data", "https://gurucool.xyz/blogs");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            //Common.showToast(context, "Articles and Blog selected");
+                        } else if (groupPosition==8) {
+                            //Notifications Menu
+                            bundle.putString("data", "https://gurucool.xyz/events");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            //Common.showToast(context, "Events selected");
+                        } else if (groupPosition==9) {
+                            //Notifications Menu
+                            bundle.putString("data", "https://gurucool.xyz/messages/1068");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            // Common.showToast(context, "Contact Us selected");
+                        }
+                        return false;
+                    }
+                })
+                .addOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                        listView.setSelected(groupPosition, childPosition);
+                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("key", 1);
+                        bundle.putBoolean("eng",true);
+
+                        if (groupPosition==1 && childPosition==0) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=281");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            // Common.showToast(context, "School courses select");
+                        } else if (groupPosition==1 && childPosition==1) {
+                            bundle.putString("data", "https://gurucool.xyz/classroompro&id=281");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "School classroom select");
+                        } else if (groupPosition==1 && childPosition==2) {
+                            bundle.putString("data", "https://gurucool.xyz/testpro&id=281");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "School test series select");
+                        } else if (groupPosition==1 && childPosition==3) {
+                            bundle.putString("data", "https://gurucool.xyz/studyhelppro&id=281");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "School study material select");
+                        } else if (groupPosition==1 && childPosition==4) {
+                            bundle.putString("data", "https://gurucool.xyz/doubtclearancepadhaai");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "School doubt clearance select");
+                        } else if (groupPosition==2 && childPosition == 0) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=1076");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Entrance courses select");
+                        } else if (groupPosition==2 && childPosition == 1) {
+                            bundle.putString("data", "https://gurucool.xyz/testpro&id=1076");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Entrance test series select");
+                        } else if (groupPosition==2 && childPosition == 2) {
+                            bundle.putString("data", "https://gurucool.xyz/classroompro&id=1076");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Entrance study groups select");
+                        } else if (groupPosition==2 && childPosition == 3) {
+                            bundle.putString("data", "https://gurucool.xyz/studyhelppro&id=1076");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Entrance study materials select");
+                        } else if (groupPosition==2 && childPosition == 4) {
+                            bundle.putString("data", "https://gurucool.xyz/hashtag/upsc");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Entrance news and articles select");
+                        } else if (groupPosition==4 && childPosition == 0) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=49&folder=41");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Courses overall dev select");
+                        } else if (groupPosition==4 && childPosition == 1) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=49&folder=106");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Courses Skilling select");
+                        } else if (groupPosition==4 && childPosition == 2) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=49&folder=46");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Courses IT CSE select");
+                        } else if (groupPosition==4 && childPosition == 3) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=49&folder=107");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+//                            Common.showToast(context, "Courses Psych and Mental select");
+                        } else if (groupPosition==4 && childPosition == 4) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=49&folder=105");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            //Common.showToast(context, "Courses Business and Managment select");
+                        } else if (groupPosition==4 && childPosition == 5) {
+                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=49&folder=104");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            //Common.showToast(context, "Courses Lang and Lit select");
+                        }
+                        drawer.closeDrawer(GravityCompat.START);
+                        return false;
+                    }
+                });
+
+        listView.setSelected(0);
     }
 
     private boolean checkPermission() {
