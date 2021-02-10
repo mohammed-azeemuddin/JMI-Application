@@ -10,9 +10,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/jmi_logo"
+        android:icon="@drawable/jmi_logo_small"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/jmi_logo"
+        android:roundIcon="@drawable/jmi_logo_small"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
