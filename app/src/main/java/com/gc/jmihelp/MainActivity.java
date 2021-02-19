@@ -315,19 +315,19 @@ public class MainActivity extends AppCompatActivity
                             startActivity(intent);
                             // Common.showToast(context, "School courses select");
                         } else if (groupPosition==1 && childPosition==1) {
-                            bundle.putString("data", "https://gurucool.xyz/classroompro&id=281");
+                            bundle.putString("data", "https://gurucool.xyz/?link1=classroompro&id=281");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
 //                            Common.showToast(context, "School classroom select");
                         } else if (groupPosition==1 && childPosition==2) {
-                            bundle.putString("data", "https://gurucool.xyz/testpro&id=281");
+                            bundle.putString("data", "https://gurucool.xyz/?link1=testpro&id=281");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
 //                            Common.showToast(context, "School test series select");
                         } else if (groupPosition==1 && childPosition==3) {
-                            bundle.putString("data", "https://gurucool.xyz/studyhelppro&id=281");
+                            bundle.putString("data", "https://gurucool.xyz/?link1=studyhelppro&id=281");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
@@ -345,19 +345,19 @@ public class MainActivity extends AppCompatActivity
                             startActivity(intent);
 //                            Common.showToast(context, "Entrance courses select");
                         } else if (groupPosition==2 && childPosition == 1) {
-                            bundle.putString("data", "https://gurucool.xyz/testpro&id=1076");
+                            bundle.putString("data", "https://gurucool.xyz/?link1=testpro&id=1076");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
 //                            Common.showToast(context, "Entrance test series select");
                         } else if (groupPosition==2 && childPosition == 2) {
-                            bundle.putString("data", "https://gurucool.xyz/classroompro&id=1076");
+                            bundle.putString("data", "https://gurucool.xyz/?link1=classroompro&id=1076");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
 //                            Common.showToast(context, "Entrance study groups select");
                         } else if (groupPosition==2 && childPosition == 3) {
-                            bundle.putString("data", "https://gurucool.xyz/studyhelppro&id=1076");
+                            bundle.putString("data", "https://gurucool.xyz/?link1=studyhelppro&id=1076");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
@@ -536,19 +536,19 @@ public class MainActivity extends AppCompatActivity
                             startActivity(intent);
                             // Common.showToast(context, "School courses select");
                         } else if (groupPosition==1 && childPosition==1) {
-                            bundle.putString("data", "https://gurucool.xyz/classroompro&id=281");
+                            bundle.putString("data", "https://gurucool.xyz/?link1=classroompro&id=281");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
 //                            Common.showToast(context, "School classroom select");
                         } else if (groupPosition==1 && childPosition==2) {
-                            bundle.putString("data", "https://gurucool.xyz/testpro&id=281");
+                            bundle.putString("data", "https://gurucool.xyz/?link1=testpro&id=281");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
 //                            Common.showToast(context, "School test series select");
                         } else if (groupPosition==1 && childPosition==3) {
-                            bundle.putString("data", "https://gurucool.xyz/studyhelppro&id=281");
+                            bundle.putString("data", "https://gurucool.xyz/?link1=studyhelppro&id=281");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
@@ -566,19 +566,19 @@ public class MainActivity extends AppCompatActivity
                             startActivity(intent);
 //                            Common.showToast(context, "Entrance courses select");
                         } else if (groupPosition==2 && childPosition == 1) {
-                            bundle.putString("data", "https://gurucool.xyz/testpro&id=1076");
+                            bundle.putString("data", "https://gurucool.xyz/?link1=testpro&id=1076");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
 //                            Common.showToast(context, "Entrance test series select");
                         } else if (groupPosition==2 && childPosition == 2) {
-                            bundle.putString("data", "https://gurucool.xyz/classroompro&id=1076");
+                            bundle.putString("data", "https://gurucool.xyz/?link1=classroompro&id=1076");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
 //                            Common.showToast(context, "Entrance study groups select");
                         } else if (groupPosition==2 && childPosition == 3) {
-                            bundle.putString("data", "https://gurucool.xyz/studyhelppro&id=1076");
+                            bundle.putString("data", "https://gurucool.xyz/?link1=studyhelppro&id=1076");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
