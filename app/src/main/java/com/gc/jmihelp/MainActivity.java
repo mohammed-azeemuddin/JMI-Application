@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -55,8 +56,18 @@ import com.techatmosphere.expandablenavigation.model.ChildModel;
 import com.techatmosphere.expandablenavigation.model.HeaderModel;
 import com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class MainActivity extends AppCompatActivity
@@ -89,6 +100,9 @@ public class MainActivity extends AppCompatActivity
     public boolean isEnglish;
     Button eng_hindi_btn;
 
+    List<String> usernames;
+    List<String> images;
+
     NestedScrollView nestedScrollView;
     //    final String url="https://gurucool.xyz/ECCInstitute";
     final String url="https://gurucool.xyz/";
@@ -111,6 +125,8 @@ public class MainActivity extends AppCompatActivity
         drawer = findViewById(R.id.drawer_layout);
         isEnglish = true;
         eng_hindi_btn=findViewById(R.id.eng_hindi_btn);
+        usernames = new ArrayList<>();
+        images = new ArrayList<>();
 
 //        if(getIntent().getExtras() == null) {
 //            activateEnglish();
@@ -145,7 +161,6 @@ public class MainActivity extends AppCompatActivity
 //        setTitle("JMI Help");
 
         mWebView.loadUrl(url);
-        Log.d("URL IS",url);
 
         setMySwipeRefreshLayout();
 
@@ -182,6 +197,7 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+
 
     public void activateHindi(){
         listView
@@ -661,7 +677,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     final void setActionBarToogle(){
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -1088,7 +1103,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public void onBackPressed(){
         if(getSupportActionBar().getTitle().equals("Local Page")){
@@ -1136,7 +1150,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-
     final public void copyToPanel(Context context, String text) {
         if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
             ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -1164,6 +1177,7 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, optionsMenu);
         return super.onCreateOptionsMenu(menu);
     }
+
 
 
 
