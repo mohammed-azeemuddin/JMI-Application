@@ -1,7 +1,5 @@
 package com.gc.jmihelp;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
@@ -13,16 +11,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
-import android.net.MailTo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -54,11 +46,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -68,7 +57,6 @@ import com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 
 
 public class MainActivity extends AppCompatActivity
@@ -157,6 +145,7 @@ public class MainActivity extends AppCompatActivity
 //        setTitle("JMI Help");
 
         mWebView.loadUrl(url);
+        Log.d("URL IS",url);
 
         setMySwipeRefreshLayout();
 
@@ -166,7 +155,7 @@ public class MainActivity extends AppCompatActivity
 
         //setmFirebaseAnalytics();
 
-        floatingActionButton();
+        //floatingActionButton();
 
         setActionBarToogle();
 
@@ -175,7 +164,6 @@ public class MainActivity extends AppCompatActivity
         if(getIntent().getExtras() != null) {
             Bundle extras = getIntent().getExtras();
             mWebView.loadUrl(extras.getString("data"));
-
         }
 
         //setRTL();
@@ -216,7 +204,7 @@ public class MainActivity extends AppCompatActivity
                 )
                 .addHeaderModel(new HeaderModel("पटना विश्वविद्यालय", R.drawable.ic_patna))
                 .addHeaderModel(
-                        new HeaderModel("पाठ्यक्रम", R.drawable.couses, true)
+                        new HeaderModel("कौशल बिहार", R.drawable.couses, true)
                                 .addChildModel(new ChildModel("समावेशी विकास"))
                                 .addChildModel(new ChildModel("स्किलिंग"))
                                 .addChildModel(new ChildModel("आईटी और कंप्यूटर विज्ञान"))
@@ -429,7 +417,7 @@ public class MainActivity extends AppCompatActivity
                 )
                 .addHeaderModel(new HeaderModel("Patna University", R.drawable.ic_patna))
                 .addHeaderModel(
-                        new HeaderModel("Courses", R.drawable.couses, true)
+                        new HeaderModel("Skill Bihar", R.drawable.couses, true)
                                 .addChildModel(new ChildModel("Overall Development"))
                                 .addChildModel(new ChildModel("Skilling"))
                                 .addChildModel(new ChildModel("IT and Computer Science"))
@@ -683,19 +671,19 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    final void floatingActionButton(){
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            final public void onClick(View view) {
-                fragment = null;
-
-                mWebView.setVisibility(View.VISIBLE);
-                frameLayout.setVisibility(View.GONE);
-                mWebView.loadUrl("https://gurucool.xyz/messages/102");
-            }
-        });
-    }
+//    final void floatingActionButton(){
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            final public void onClick(View view) {
+//                fragment = null;
+//
+//                mWebView.setVisibility(View.VISIBLE);
+//                frameLayout.setVisibility(View.GONE);
+//                mWebView.loadUrl("https://gurucool.xyz/messages/102");
+//            }
+//        });
+//    }
 
 
     final void viewInit(){

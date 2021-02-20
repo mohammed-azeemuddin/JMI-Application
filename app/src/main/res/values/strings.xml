@@ -13,7 +13,7 @@
     <string name="storage_manifest">Storage permission is required.</string>
     <string name="storage_manifest_title">Please give me permission.</string>
     <string name="download_info">Downloading.</string>
-    <string name="about_title">You are Offline Page.</string>
+    <string name="about_title">You are Offline.</string>
     <string name="about_content">Make sure you are connected to network and refresh</string>
     <string name="action_settings">Settings</string>
 </resources>
