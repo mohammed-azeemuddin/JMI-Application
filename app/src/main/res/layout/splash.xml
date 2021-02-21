@@ -10,7 +10,6 @@
         android:layout_height="match_parent"
         android:src="@drawable/padhaai_splash"
         android:layout_centerInParent="true"
-        android:layout_margin="20dp"/>
-
+        android:scaleType="centerCrop"/>
 
 </RelativeLayout>
