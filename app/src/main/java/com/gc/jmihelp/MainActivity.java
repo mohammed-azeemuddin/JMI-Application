@@ -12,7 +12,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -47,27 +46,21 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.gc.jmihelp.model.ChildModel;
+import com.gc.jmihelp.model.HeaderModel;
+import com.gc.jmihelp.view.ExpandableNavigationListView;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.techatmosphere.expandablenavigation.model.ChildModel;
-import com.techatmosphere.expandablenavigation.model.HeaderModel;
-import com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView;
+//import com.techatmosphere.expandablenavigation.model.ChildModel;
+//import com.techatmosphere.expandablenavigation.model.HeaderModel;
+//import com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class MainActivity extends AppCompatActivity
@@ -121,7 +114,6 @@ public class MainActivity extends AppCompatActivity
         viewInit();
 
         listView = findViewById(R.id.expandable_navigation);
-        context = MainActivity.this;
         drawer = findViewById(R.id.drawer_layout);
         isEnglish = true;
         eng_hindi_btn=findViewById(R.id.eng_hindi_btn);

@@ -30,7 +30,7 @@
             android:id="@+id/scrollView"
             android:layout_marginTop="170dp">
 
-            <com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView
+            <com.gc.jmihelp.view.ExpandableNavigationListView
                 android:id="@+id/expandable_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
