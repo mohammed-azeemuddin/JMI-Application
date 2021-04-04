@@ -222,6 +222,7 @@ public class MainActivity extends AppCompatActivity
                 )
                 .addHeaderModel(new HeaderModel("प्रश्न और उत्तर",R.drawable.qna))
                 .addHeaderModel(new HeaderModel("पुस्तक बाजार",R.drawable.bookm))
+                .addHeaderModel(new HeaderModel("नौकरियां",R.drawable.jobs))
                 .addHeaderModel(new HeaderModel("लेख और अपडेट",R.drawable.blog))
                 .addHeaderModel(new HeaderModel("स्पर्धाएँ" + "आयोजन",R.drawable.event))
                 .addHeaderModel(new HeaderModel("संपर्क करें",R.drawable.contact))
@@ -272,14 +273,20 @@ public class MainActivity extends AppCompatActivity
                             finish();
                             startActivity(intent);
                             //Common.showToast(context, "Articles and Blog selected");
-                        } else if (groupPosition==7) {
+                        } else if(groupPosition==7){
+                            bundle.putString("data", "https://gurucool.xyz/jobs");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                        }
+                        else if (groupPosition==8) {
                             //Notifications Menu
                             bundle.putString("data", "https://gurucool.xyz/events");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
                             //Common.showToast(context, "Events selected");
-                        } else if (groupPosition==8) {
+                        } else if (groupPosition==9) {
                             //Notifications Menu
                             bundle.putString("data", "https://gurucool.xyz/messages/1068");
                             intent.putExtras(bundle);
@@ -360,7 +367,7 @@ public class MainActivity extends AppCompatActivity
                             startActivity(intent);
 //                            Common.showToast(context, "Entrance news and articles select");
                         } else if (groupPosition==3 && childPosition == 0) {
-                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=49&folder=41");
+                            bundle.putString("data", "https://gurucool.xyz/courses");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
@@ -435,6 +442,7 @@ public class MainActivity extends AppCompatActivity
                 )
                 .addHeaderModel(new HeaderModel("QnA",R.drawable.qna))
                 .addHeaderModel(new HeaderModel("Book Market",R.drawable.bookm))
+                .addHeaderModel(new HeaderModel("Jobs",R.drawable.jobs))
                 .addHeaderModel(new HeaderModel("Articles and Blog",R.drawable.blog))
                 .addHeaderModel(new HeaderModel("Events",R.drawable.event))
                 .addHeaderModel(new HeaderModel("Contact Us",R.drawable.contact))
@@ -485,14 +493,21 @@ public class MainActivity extends AppCompatActivity
                             finish();
                             startActivity(intent);
                             //Common.showToast(context, "Articles and Blog selected");
-                        } else if (groupPosition==7) {
+                        }
+                        else if(groupPosition==7){
+                            bundle.putString("data", "https://gurucool.xyz/jobs");
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                        }
+                        else if (groupPosition==8) {
                             //Notifications Menu
                             bundle.putString("data", "https://gurucool.xyz/events");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
                             //Common.showToast(context, "Events selected");
-                        } else if (groupPosition==8) {
+                        } else if (groupPosition==9) {
                             //Notifications Menu
                             bundle.putString("data", "https://gurucool.xyz/messages/1068");
                             intent.putExtras(bundle);
@@ -573,7 +588,7 @@ public class MainActivity extends AppCompatActivity
                             startActivity(intent);
 //                            Common.showToast(context, "Entrance news and articles select");
                         } else if (groupPosition==3 && childPosition == 0) {
-                            bundle.putString("data", "https://gurucool.xyz/index.php?link1=educatormode&id=49&folder=41");
+                            bundle.putString("data", "https://gurucool.xyz/courses");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
