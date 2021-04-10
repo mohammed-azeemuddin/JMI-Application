@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity
                                 .addChildModel(new ChildModel("अध्ययन सामग्री"))
                                 .addChildModel(new ChildModel("समाचार लेख"))
                 )
-                .addHeaderModel(new HeaderModel("पटना विश्वविद्यालय", R.drawable.ic_patna))
+                .addHeaderModel(new HeaderModel("कॉलेज", R.drawable.ic_patna))
                 .addHeaderModel(
                         new HeaderModel("कौशल बिहार", R.drawable.couses, true)
                                 .addChildModel(new ChildModel("समावेशी विकास"))
@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity
 //                            Common.showToast(context, "Entrance Select");
                         } else if (groupPosition == 2) {
                             //Patna
-                            bundle.putString("data", "https://gurucool.xyz/timeline&u=PatnaUniversityHelp&ref=se");
+                            bundle.putString("data", "https://gurucool.xyz/bihar-colleges");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
@@ -430,7 +430,7 @@ public class MainActivity extends AppCompatActivity
                                 .addChildModel(new ChildModel("Study Materials"))
                                 .addChildModel(new ChildModel("News and Articles"))
                 )
-                .addHeaderModel(new HeaderModel("Patna University", R.drawable.ic_patna))
+                .addHeaderModel(new HeaderModel("College", R.drawable.ic_patna))
                 .addHeaderModel(
                         new HeaderModel("Skill Bihar", R.drawable.couses, true)
                                 .addChildModel(new ChildModel("Overall Development"))
@@ -464,7 +464,7 @@ public class MainActivity extends AppCompatActivity
                             //Common.showToast(context, "Entrance Select");
                         } else if (groupPosition == 2) {
                             //Patna
-                            bundle.putString("data", "https://gurucool.xyz/timeline&u=PatnaUniversityHelp&ref=se");
+                            bundle.putString("data", "https://gurucool.xyz/bihar-colleges");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);

@@ -51,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="170dp"
                 android:layout_marginTop="60dp"
+                android:background="#f9c933"
                 android:backgroundTintMode="multiply"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
@@ -58,7 +59,6 @@
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="#000000"
-                android:background="#ffdc51"
                 android:textSize="15dp"></Button>
         </LinearLayout>
 
