@@ -18,18 +18,18 @@ public class Splash extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-        topAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
+//        topAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
         logoImage = findViewById(R.id.logo_image);
 
         Thread timerThread = new Thread(){
             public void run(){
                 try{
-                    logoImage.setAnimation(topAnim);
+//                    logoImage.setAnimation(topAnim);
                     sleep(3000);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }finally{
-                    Intent intent = new Intent(Splash.this,Login.class);
+                    Intent intent = new Intent(Splash.this,MainActivity.class);
                     startActivity(intent);
                 }
             }

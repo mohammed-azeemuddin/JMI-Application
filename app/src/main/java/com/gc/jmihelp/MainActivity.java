@@ -268,13 +268,13 @@ public class MainActivity extends AppCompatActivity
                             //Common.showToast(context, "Book Market selected");
                         } else if (groupPosition==6) {
                             //Notifications Menu
-                            bundle.putString("data", "https://gurucool.xyz/blogs");
+                            bundle.putString("data", "https://gurucool.xyz/jobs");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
                             //Common.showToast(context, "Articles and Blog selected");
                         } else if(groupPosition==7){
-                            bundle.putString("data", "https://gurucool.xyz/jobs");
+                            bundle.putString("data", "https://gurucool.xyz/blogs");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
@@ -488,14 +488,14 @@ public class MainActivity extends AppCompatActivity
                             //Common.showToast(context, "Book Market selected");
                         } else if (groupPosition==6) {
                             //Notifications Menu
-                            bundle.putString("data", "https://gurucool.xyz/blogs");
+                            bundle.putString("data", "https://gurucool.xyz/jobs");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
                             //Common.showToast(context, "Articles and Blog selected");
                         }
                         else if(groupPosition==7){
-                            bundle.putString("data", "https://gurucool.xyz/jobs");
+                            bundle.putString("data", "https://gurucool.xyz/blogs");
                             intent.putExtras(bundle);
                             finish();
                             startActivity(intent);
